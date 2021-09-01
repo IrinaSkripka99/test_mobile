@@ -9,22 +9,17 @@ const AUTO_UPDATE = 60000;
 const REFRESH_TIME = 15000;
 
 const EventsListScreen = () => {
-  let intervalId = {} as NodeJS.Timer;
-  let timerId = {} as NodeJS.Timer;
+  let intervalId: NodeJS.Timeout;
+  let timerId: NodeJS.Timeout;
 
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const [canRefresh, setCanRefresh] = useState<boolean>(false);
 
   useEffect(() => {
-    isFocused && loadList();
-  }, [isFocused]);
-
-  useEffect(() => {
     if (isFocused) {
-      intervalId = setInterval(() => {
-        loadList();
-      }, AUTO_UPDATE);
+      loadList();
+      startAutoReloadInterval();
     }
     return () => {
       clearInterval(intervalId);
@@ -34,13 +29,19 @@ const EventsListScreen = () => {
 
   const loadList = useCallback(() => {
     setCanRefresh(false);
-    dispatch(loadEvents()).then(() => startTimer());
+    dispatch(loadEvents()).then(() => startRefreshTimer());
   }, []);
 
-  const startTimer = useCallback(() => {
+  const startRefreshTimer = useCallback(() => {
     timerId = setTimeout(() => {
       setCanRefresh(true);
     }, REFRESH_TIME);
+  }, []);
+
+  const startAutoReloadInterval = useCallback(() => {
+    intervalId = setInterval(() => {
+      loadList();
+    }, AUTO_UPDATE);
   }, []);
 
   return (

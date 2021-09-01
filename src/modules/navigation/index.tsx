@@ -1,9 +1,8 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import EventsListScreen from '../events/ui/pages/main';
-import screenNames from './screen-names';
-import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import ShowEventScreen from '../events/ui/pages/show';
+import React from 'react';
+import EventsListScreen from '../public-events/ui/pages/main';
+import ShowEventScreen from '../public-events/ui/pages/show';
+import screenNames from './screen-names';
 
 const Stack = createStackNavigator();
 

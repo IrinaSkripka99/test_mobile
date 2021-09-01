@@ -1,4 +1,4 @@
-import events from '../modules/events/store';
+import events from '../modules/public-events/store';
 
 export default {
   events,
