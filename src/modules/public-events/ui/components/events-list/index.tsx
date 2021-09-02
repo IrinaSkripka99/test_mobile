@@ -12,8 +12,7 @@ type Props = {
   canRefresh: boolean;
 };
 
-const EventsList = (props: Props) => {
-  const {loadList, canRefresh} = props;
+const EventsList: React.FC<Props> = ({loadList, canRefresh}: Props) => {
   const entities = useSelector(eventsEntitiesSelector);
   const isLoading = useSelector(loadingEntitiesSelector);
   const keyExtractor = useCallback(item => item.id, []);

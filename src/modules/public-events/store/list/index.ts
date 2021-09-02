@@ -14,6 +14,7 @@ const slice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(loadEvents.fulfilled, (state, {payload}) => {
+      eventsAdapter.removeAll(state);
       eventsAdapter.addMany(state, payload.data);
       state.isLoading = false;
     });
